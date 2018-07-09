@@ -6,6 +6,7 @@ const port = process.env.PORT || 5000;
 
 // API calls
 app.get('/api/hello', (req, res) => {
+  console.log('GET api /api/hello zzzzz')
   res.send({ express: 'Hello From Express' });
 });
 
