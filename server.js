@@ -1,13 +1,24 @@
 const express = require('express');
 const path = require('path');
-
 const app = express();
+
+var {mongoose} = require('./db/mongoose');
+var {Message} = require('./models/message');
+
 const port = process.env.PORT || 5000;
 
 // API calls
 app.get('/api/hello', (req, res) => {
-  console.log('GET api /api/hello zzzzz')
-  res.send({ express: 'Hello From Express' });
+  var mesg = new Message({
+    name: 'comming from mongo db' 
+  });
+  
+    mesg.save().then((doc) => {
+      res.send({ express: `Hello From Express ${doc.name} id object ${doc.id}` });
+    }).catch((e) => {
+      res.send({ express: `Hello From Express DB Error` });
+    }
+  )
 });
 
 if (process.env.NODE_ENV === 'production') {
